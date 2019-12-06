@@ -1,0 +1,469 @@
+<style>
+body{
+	margin: 0px;
+	background: #000000;
+	font-family: 'Avenir', Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	/* background-image: url(static/il-grid-trans.png);
+	background-repeat: repeat; */
+}
+.loader {
+    background: rgba(43, 43, 43, 0.91);
+    /* background: radial-gradient(#222, #000); */
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 99999;
+	display: none;
+}
+
+.loader-inner {
+    bottom: 0;
+    height: 60px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100px;
+}
+
+.loader-line-wrap {
+    animation: 
+		spin 2000ms cubic-bezier(.175, .885, .32, 1.275) infinite
+	;
+    box-sizing: border-box;
+    height: 50px;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    transform-origin: 50% 100%;
+    width: 100px;
+}
+.loader-line {
+    border: 4px solid transparent;
+    border-radius: 100%;
+    box-sizing: border-box;
+    height: 100px;
+    left: 0;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100px;
+}
+.loader-line-wrap:nth-child(1) { animation-delay: -50ms; }
+.loader-line-wrap:nth-child(2) { animation-delay: -100ms; }
+.loader-line-wrap:nth-child(3) { animation-delay: -150ms; }
+.loader-line-wrap:nth-child(4) { animation-delay: -200ms; }
+.loader-line-wrap:nth-child(5) { animation-delay: -250ms; }
+
+.loader-line-wrap:nth-child(1) .loader-line {
+    border-color: hsl(0, 80%, 60%);
+    height: 90px;
+    width: 90px;
+    top: 7px;
+}
+.loader-line-wrap:nth-child(2) .loader-line {
+    border-color: hsl(60, 80%, 60%);
+    height: 76px;
+    width: 76px;
+    top: 14px;
+}
+.loader-line-wrap:nth-child(3) .loader-line {
+    border-color: hsl(120, 80%, 60%);
+    height: 62px;
+    width: 62px;
+    top: 21px;
+}
+.loader-line-wrap:nth-child(4) .loader-line {
+    border-color: hsl(180, 80%, 60%);
+    height: 48px;
+    width: 48px;
+    top: 28px;
+}
+.loader-line-wrap:nth-child(5) .loader-line {
+    border-color: hsl(240, 80%, 60%);
+    height: 34px;
+    width: 34px;
+    top: 35px;
+}
+
+@keyframes spin {
+    0%, 15% {
+		transform: rotate(0);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+#main_video{
+	width: 960px;
+	height:540px;
+	margin: 0 auto;
+	margin-top: 20px;
+	/* border:2px solid rgb(105, 105, 105); */
+	z-index: 0px;
+	display: none;
+}
+#src_div{
+	width: 960px;
+	height:30px;
+	margin: 0 auto;
+	margin-top: 150px;
+	display: block;
+	line-height: 20px;
+	display: flex;
+	flex-direction: row;
+}
+#src_input{
+	height: 30px;
+	width: 900px;
+	border:2px solid rgb(105, 105, 105);
+	background: black;
+	color: white;
+	font-size: 13px;
+	padding-left: 5px;
+}
+.change_button{
+	height: 26px;
+	float: right;
+	width: 30px;
+	background: black;
+	border:2px solid rgb(105, 105, 105);
+	color: white;
+	font-size: 13px;
+	padding: 0px 10px 0px 10px;
+	line-height: 26px;
+	user-select: none;
+	cursor: pointer;
+	margin-left: 5px;
+}
+.change_button:hover{
+	border:2px solid rgb(148, 148, 148);
+}
+#res_list_out{
+	background: #686868;
+	display: none;
+	/* box-shadow: inset 0 0 20px #000000; */
+}
+#res_list{
+	/* margin: 0px 10px auto 10px; */
+	padding: 30px;
+	
+	/* border-radius: 3px; */
+	display: flex;
+	flex-direction: row;
+	overflow-x: scroll;
+	/* overflow-y: hidden; */
+	flex-wrap: nowrap;
+	
+	
+}
+.res_item{
+	width: 150px;
+	margin: 0px 20px 0px 20px;
+}
+.res_img{
+	width: 150px;
+	height: 212px;
+	box-shadow: 0px 0px 20px 10px #313131;
+	border-radius: 3px;
+}
+.res_img:hover{
+	box-shadow: 0px 0px 20px 10px rgb(14, 14, 14);
+	cursor: pointer;
+}
+.res_title{
+	margin-top: 20px;
+	color: white;
+	text-align: center;
+	text-shadow: 0px 0px 10px rgb(204, 204, 204);
+	width: 150px;
+	height: 30px;
+	overflow:hidden;
+	/* background: red; */
+	font-size: 10px;
+	
+}
+
+.scrollbar::-webkit-scrollbar {
+	height: 10px;
+	width: 10px;
+	}
+
+	.scrollbar::-webkit-scrollbar-track-piece {
+	background-color: #ff000000;
+	} /* 滚动条的内层滑轨背景颜色 */
+
+	.scrollbar::-webkit-scrollbar-track {
+	background-color: #68686800;
+	} /* 滚动条的外层滑轨背景颜色 */
+
+	.scrollbar:hover::-webkit-scrollbar-thumb {
+	background-color: #ffffff3d;
+	border-radius: 10px;
+	} /* 滚动条的内层滑块颜色 */
+
+	.scrollbar::-webkit-scrollbar-button {
+	background-color: rgba(255, 255, 255, 0);
+	display: none;
+	} /* 滑轨两头的监听按钮颜色 */
+.tips{
+	color: white;
+    font-size: 20px;
+}
+#item_detail{
+	width: 960px;
+	
+	margin: 0 auto;
+	margin-top: 40px;
+	margin-bottom: 80px;
+	display: none;
+}
+.src_list_container{
+	/* background: gray; */
+	border:2px solid rgb(105, 105, 105);
+	padding: 20px;
+	margin-bottom: 15px;
+}
+.src_list_title{
+	font-size: 20px;
+	color: white;
+	margin-bottom: 20px;
+}
+.src_item_list{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+.src_item{
+	height: 20px;
+	background: black;
+	margin: 0px 5px 10px 5px;
+	color: white;
+	font-size: 15px;
+	padding: 5px 10px 5px 10px;
+	line-height: 20px;
+	border:2px solid rgb(105, 105, 105);
+	user-select: none;
+	cursor: pointer;
+}
+.src_item:hover{
+	border:2px solid rgb(148, 148, 148);
+}
+</style>
+<div class="loader">
+	<div class="loader-inner">
+		<div class="loader-line-wrap">
+			<div class="loader-line"></div>
+		</div>
+		<div class="loader-line-wrap">
+			<div class="loader-line"></div>
+		</div>
+		<div class="loader-line-wrap">
+			<div class="loader-line"></div>
+		</div>
+		<div class="loader-line-wrap">
+			<div class="loader-line"></div>
+		</div>
+		<div class="loader-line-wrap">
+			<div class="loader-line"></div>
+		</div>
+	</div>
+</div>
+
+<div id="res_list_out">
+<div class="scrollbar" id="res_list">
+		
+</div>
+</div>
+
+<div id="src_div">
+	<input id="src_input" type="text">
+	<div class="change_button" onclick="change_src()">播放</div>
+	<div class="change_button" onclick="search_kw()">搜索</div>
+</div>
+
+
+<video id="main_video" class="video-js vjs-default-skin" controls>
+</video>
+
+<div id="item_detail">
+	<div class="src_list_container">
+		<div class="src_list_title">M3U8</div>
+		<div id="src_list_container_m3u8" class="src_item_list">
+			<div data-src="" class="src_item">123</div>
+			<div class="src_item">123</div>
+			<div class="src_item">123</div>
+			<div class="src_item">123</div>
+		</div>
+	</div>
+
+	<div class="src_list_container">
+		<div class="src_list_title">MP4</div>
+		<div id="src_list_container_mp4" class="src_item_list">
+			<div class="src_item">123</div>
+			<div class="src_item">123</div>
+			<div class="src_item">123</div>
+		</div>
+	</div>
+
+	<!-- <div class="src_list_container">
+			<div class="src_list_title">下载</div>
+			<div id="src_list_container_download" class="src_item_list">
+				<div class="src_item">123</div>
+				<div class="src_item">123</div>
+				<div class="src_item">123</div>
+				<div class="src_item">123</div>
+			</div>
+		</div> -->
+
+</div>
+
+
+<link rel="stylesheet" href="static/video-js.css">
+<script src="static/video.min.js"></script>
+<script src="static/videojs-contrib-hls.min.js"></script>
+<script src="static/jquery.min.js"></script>
+
+<script>
+var outDiv = document.getElementById('res_list');
+var res_data = {}
+//  顶部横向滚动
+outDiv.onwheel = function(event){  
+	//禁止事件默认行为（此处禁止鼠标滚轮行为关联到"屏幕滚动条上下移动"行为）
+	event.preventDefault();  
+	//设置鼠标滚轮滚动时屏幕滚动条的移动步长
+	var step = 50;  
+	if(event.deltaY < 0){  
+		//向上滚动鼠标滚轮，屏幕滚动条左移
+		this.scrollLeft -= step;  
+	} else {  
+		//向下滚动鼠标滚轮，屏幕滚动条右移
+		this.scrollLeft += step;  
+	}  
+}
+// 封装ajax
+http = function(url){
+	let xmlhttp=new XMLHttpRequest();
+
+	xmlhttp.onreadystatechange=function()
+	{	
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			// console.log(xmlhttp.responseText);
+			res_data = JSON.parse(xmlhttp.responseText)
+			//遍历 结果
+			//改变dom
+			//jq 格式化字符串 生成ele
+			$("#res_list").empty()
+			for(let i = 0 ; i < res_data["list"].length ; i++){
+				var res_item_str = '<div onclick="res_item_click(this)" data-index="' + i +'" class="res_item"><img class="res_img"src="' + res_data["list"][i]["vod_pic"] + '" alt=""><div class="res_title">' + res_data["list"][i]["vod_name"] + '</div></div>'
+				$("#res_list").append($(res_item_str))
+			}
+			$("#res_list_out").css("display","block");
+			if(res_data["list"].length == 0){
+				$("#res_list").append($("<div class='tips' >没有找到啊  (╯▔皿▔)╯ </div>"))
+			}
+			$(".loader").css("display","none");
+			
+		}
+	}
+	xmlhttp.open("GET",url,true);
+	xmlhttp.send();
+}
+// 初始化播放器
+var player = videojs('main_video');
+
+// 点击搜索 回调函数
+search_kw = function(){
+	var wd = document.getElementById("src_input").value;
+	var url = "/api?wd=" + wd.toString();
+	http(url)
+	$(".loader").css("display","block");
+	$("#main_video").css("display","none");
+	$("#item_detail").css("display","none");
+}
+
+res_item_click = function(ele){
+	var index = $(ele).data("index");
+	//  m3u8
+	$("#src_list_container_m3u8").empty()
+	for(let i = 0 ; i < res_data["list"][index]["m3u8"].length ; i++){
+		var res_item_str = '<div onclick="change_src_m3u8(this)"  data-src="'+ res_data["list"][index]["m3u8"][i][1] +'" class="src_item">'+ res_data["list"][index]["m3u8"][i][0] +'</div>'
+		$("#src_list_container_m3u8").append($(res_item_str))
+	}
+	if(res_data["list"][index]["m3u8"].length == 0){
+		$("#src_list_container_m3u8").append($("<div class='tips' >没有找到啊  (╯▔皿▔)╯ </div>"))
+	}
+	// mp4
+	$("#src_list_container_mp4").empty()
+	for(let i = 0 ; i < res_data["list"][index]["mp4"].length ; i++){
+		var res_item_str = '<div onclick="change_src_mp4(this)" data-src="'+ res_data["list"][index]["mp4"][i][1] +'" class="src_item">'+ res_data["list"][index]["mp4"][i][0] +'</div>'
+		$("#src_list_container_mp4").append($(res_item_str))
+	}
+	if(res_data["list"][index]["mp4"].length == 0){
+		$("#src_list_container_mp4").append($("<div class='tips' >没有找到啊  (╯▔皿▔)╯ </div>"))
+	}
+	// download
+	// $("#src_list_container_download").empty()
+	// for(let i = 0 ; i < res_data["list"][index]["mp4"].length ; i++){
+	// 	var res_item_str = '<div data-src="'+ res_data["list"][index]["mp4"][i][1] +'" class="src_item">'+ res_data["list"][index]["mp4"][i][0] +'</div>'
+	// 	$("#src_list_container_download").append($(res_item_str))
+	// }
+	// if(res_data["list"][index]["mp4"].length == 0){
+	// 	$("#src_list_container_download").append($("<div class='tips' >没有找到啊  (╯▔皿▔)╯ </div>"))
+	// }
+	$("#item_detail").css("display","block");
+	$("#main_video").css("display","none");
+}
+// 点击播放 回调函数
+change_src = function(){
+	var video_url = document.getElementById("src_input").value;
+	console.log(video_url);
+	if(video_url.slice(-3) == "mp4"){
+		player.src({
+			src: video_url
+		});
+		player.play();
+	}
+	else{
+		player.src({
+			src: video_url,
+			type: 'application/x-mpegURL',
+		});
+		player.play();
+	}
+	$("#main_video").css("display","block")
+	
+}
+
+// 点击播放 回调函数
+change_src_m3u8 = function(ele){
+	var video_url = $(ele).data("src");
+	console.log(video_url);
+	player.src({
+		src: video_url,
+		type: 'application/x-mpegURL',
+	});
+	player.play();
+	$("#main_video").css("display","block")
+}
+
+change_src_mp4 = function(ele){
+	var video_url = $(ele).data("src");
+	console.log(video_url);
+	player.src({
+		src: video_url,
+	});
+	player.play();
+	$("#main_video").css("display","block")
+}
+</script>
